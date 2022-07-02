@@ -1,7 +1,9 @@
+// import { ethers } from "ethers";
 import { ethers } from "ethers";
 import "dotenv/config";
 import * as ballotJson from "../artifacts/contracts/CustomBallot.sol/CustomBallot.json";
 import * as tokenJson from "../artifacts/contracts/Token.sol/MyToken.json";
+
 
 function convertStringArrayToBytes32(array: string[]) {
   const bytes32Array = [];
@@ -11,11 +13,7 @@ function convertStringArrayToBytes32(array: string[]) {
   return bytes32Array;
 }
 
-async function main(
-  signer: ethers.Wallet,
-  votingContractAddress,
-  ...proposals: string[]
-) {
+async function main(signer: ethers.Wallet, ...proposals: string[]) {
   // =================================================================
   // Check the proposals
   // =================================================================
@@ -33,6 +31,20 @@ async function main(
   if (balance < 0.01) {
     throw new Error("Not enough ether");
   }
+  // =================================================================
+  // Deploy MyToken Contract
+  // =================================================================
+  console.log("Deploying MyToken contract");
+  const tokenFactory = new ethers.ContractFactory(
+    tokenJson.abi,
+    tokenJson.bytecode,
+    signer
+  );
+  const tokenContract = await tokenFactory.deploy();
+  console.log("Awaiting confirmations");
+  await tokenContract.deployed();
+  console.log("MyToken contract deployed completed");
+  console.log(`Contract deployed at ${tokenContract.address}`);
 
   // =================================================================
   // Deploy CustomBallot Contract
@@ -44,7 +56,7 @@ async function main(
   );
   const ballotContract = await ballotFactory.deploy(
     convertStringArrayToBytes32(proposals),
-    votingContractAddress
+    tokenContract.address
   );
   console.log("Awaiting confirmations");
   await ballotContract.deployed();
