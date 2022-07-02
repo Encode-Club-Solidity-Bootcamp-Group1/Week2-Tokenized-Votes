@@ -52,12 +52,12 @@ async function main() {
   const ballotContract: CustomBallot = new Contract(
     ballotAddress,
     ballotJson.abi,
-    signer
+    singer2
   ) as CustomBallot;
   const voteTokenContract: MyToken = new Contract(
     tokenAddress,
     voteTokenJson.abi,
-    signer
+    singer2
   ) as MyToken;
 
   console.log("========= Details =========");
@@ -66,18 +66,22 @@ async function main() {
   console.log("Delegate Voting To Address - ", delegateWalletAddress);
 
   console.log("Voting Power before");
-  const votingPower = await ballotContract.connect(singer2).votingPower();
+  const votingPower = await ballotContract
+  // .connect(singer2)
+  .votingPower();
   console.log(votingPower.toString());
 
   const voteTx = await ballotContract
-    .connect(singer2)
+    // .connect(singer2)
     .vote(1, ethers.utils.parseEther("1"));
   console.log("Vote to first proposal with 1 Token", voteTx.hash);
 
   await voteTx.wait(1);
 
   console.log("Voting Power After");
-  const votingPowerAfter = await ballotContract.connect(singer2).votingPower();
+  const votingPowerAfter = await ballotContract
+  // .connect(singer2)
+  .votingPower();
   console.log(votingPowerAfter.toString());
 }
 

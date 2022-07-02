@@ -127,6 +127,13 @@ describe("Ballot", function () {
                 expectedVotes[PROPOSAL_CHOSEN[index]] += USED_VOTE_POWER;
               });
 
+              it("it has voting power",async () => {
+                const votingPower =await ballotContract
+                .connect(accounts[index + 1])
+                .votingPower()
+                expect(votingPower).to.be.eq(0)
+              });
+
               it("updates the votes for that proposal", async () => {
                 const votedProposal = await ballotContract.proposals(
                   PROPOSAL_CHOSEN[index]
