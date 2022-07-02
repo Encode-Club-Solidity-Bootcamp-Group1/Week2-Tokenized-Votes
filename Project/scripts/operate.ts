@@ -1,7 +1,9 @@
 import deploy from "./deployments";
+import getWalletAccount from "./getWalletAccount";
 
 async function main() {
-  const ballotAddress = await deploy("Allen", "russ", "Kuro", "IKA");
+  const signer = await getWalletAccount();
+  const ballotAddress = await deploy(signer, "Allen", "russ", "Kuro", "IKA");
 }
 
 main().catch((error) => {
