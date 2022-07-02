@@ -1,7 +1,5 @@
 import { ethers } from "ethers";
-import "dotenv/config";
 import * as ballotJson from "../artifacts/contracts/CustomBallot.sol/CustomBallot.json";
-import * as tokenJson from "../artifacts/contracts/Token.sol/MyToken.json";
 
 function convertStringArrayToBytes32(array: string[]) {
   const bytes32Array = [];
@@ -13,7 +11,7 @@ function convertStringArrayToBytes32(array: string[]) {
 
 async function main(
   signer: ethers.Wallet,
-  votingContractAddress,
+  votingContractAddress: string,
   ...proposals: string[]
 ) {
   // =================================================================
@@ -50,6 +48,7 @@ async function main(
   await ballotContract.deployed();
   console.log("Completed");
   console.log(`Contract deployed at ${ballotContract.address}`);
+  await ballotContract.deployTransaction.wait(3);
   return ballotContract.address;
 }
 

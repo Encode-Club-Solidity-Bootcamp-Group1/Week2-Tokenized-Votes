@@ -1,5 +1,4 @@
 import { ethers } from "ethers";
-import "dotenv/config";
 import * as tokenJson from "../artifacts/contracts/Token.sol/MyToken.json";
 
 async function main(signer: ethers.Wallet) {
