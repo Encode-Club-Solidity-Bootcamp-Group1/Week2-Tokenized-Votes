@@ -68,6 +68,11 @@ async function main() {
 
   const delegateTx = await voteTokenContract.delegate(delegateWalletAddress);
   await delegateTx.wait(1);
+
+  const txVote = await voteTokenContract.getVotes(delegateWalletAddress)
+  console.log('txVote', txVote.toString())
+  
+  console.log()
   console.log(
     "Delegate vote from",
     signer.address,

@@ -14,7 +14,7 @@ async function main() {
     const balance = Number(ethers.utils.formatEther(await signer.getBalance()));
     console.log(`Wallet balance ${balance}`);
     if (balance < 0.01) {
-      throw new Error("Not enough ether");
+        throw new Error("Not enough ether");
     }
     if (process.argv.length < 3) throw Error('Token Address is missing')
     if (process.argv.length < 4) throw Error('To Address is missing')
@@ -35,15 +35,15 @@ async function main() {
     console.log('token contract address', tokenContract.address)
 
     const preMintVotes = await tokenContract.getVotes(toAddress)
-    console.log('pre mint votes',preMintVotes.toString())
+    console.log('pre mint votes', preMintVotes.toString())
 
     const txMint = await tokenContract.mint(toAddress, ethers.utils.parseEther(Number(mintValue).toFixed(18)))
     console.log('awaiting confirmations mint')
     await txMint.wait()
     console.log('mint transaction hash', txMint.hash)
-    
+
     const postMintVotes = await tokenContract.getVotes(toAddress)
-    console.log('post mint votes',postMintVotes.toString())
+    console.log('post mint votes', postMintVotes.toString())
 
 }
 main().catch(error => {

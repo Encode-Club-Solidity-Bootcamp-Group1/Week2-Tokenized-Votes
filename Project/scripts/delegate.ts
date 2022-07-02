@@ -7,7 +7,7 @@ const EXPOSED_KEY = '8da4ef21b864d2cc526dbdb2a120bd2874c36c9d0a1fb7f8c63d7f7a8b4
 async function main() {
     const provider = ethers.providers.getDefaultProvider('ropsten')
     const signer = new ethers.Wallet(
-        process.env.PRIVATE_KEY ?? EXPOSED_KEY
+        process.env.PRIVATE_KEY1 ?? EXPOSED_KEY
     ).connect(provider)
     console.log('signer address', signer.address)
 
