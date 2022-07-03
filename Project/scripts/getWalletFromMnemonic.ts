@@ -16,7 +16,7 @@ async function main(
       ? ethers.Wallet.fromMnemonic(mnemonic, accounts)
       : new ethers.Wallet(privateKey ?? EXPOSED_KEY);
 
-  return wallet.address;
+  return wallet;
 }
 
 export default main;
