@@ -8,16 +8,15 @@ const EXPOSED_KEY =
 
 async function main(
   privateKey: string | undefined,
-  mnemonic: string | undefined
+  mnemonic: string | undefined,
+  accounts: string | undefined
 ) {
   const wallet =
     mnemonic && mnemonic.length > 0
-      ? ethers.Wallet.fromMnemonic(mnemonic)
+      ? ethers.Wallet.fromMnemonic(mnemonic, accounts)
       : new ethers.Wallet(privateKey ?? EXPOSED_KEY);
-  console.log(`Using address ${wallet.address}`);
-  const provider = ethers.providers.getDefaultProvider("ropsten");
-  const signer = wallet.connect(provider);
-  return signer;
+
+  return wallet.address;
 }
 
 export default main;
