@@ -3,18 +3,17 @@ import deployBallot from "./deploy-ballot";
 import mintAndDelegateToAddress from "./mint-and-delegate-to-address";
 import voteByDelegatee from "./vote-by-delegatee-address";
 import getWalletAccount from "./getWalletAccount";
+import queryVotingResult from "./query-voting-results";
 import "dotenv/config";
 
 async function main() {
   const ownerSigner = await getWalletAccount(
     process.env.PRIVATE_KEY,
-    process.env.MNEMONIC,
-    "ropsten"
+    process.env.MNEMONIC
   );
   const otherSigner = await getWalletAccount(
     process.env.PRIVATE_KEY1,
-    process.env.MNEMONIC,
-    "ropsten"
+    process.env.MNEMONIC
   );
 
   const votingTokenContractAddress = await deployToken(ownerSigner);
@@ -31,10 +30,13 @@ async function main() {
     "Allen",
     "russ",
     "Kuro",
-    "IKA"
+    "IKA",
+    "Sharan"
   );
 
   await voteByDelegatee(otherSigner, ballotContractAddress);
+
+  await queryVotingResult(otherSigner, ballotContractAddress);
 }
 
 main().catch((error) => {
