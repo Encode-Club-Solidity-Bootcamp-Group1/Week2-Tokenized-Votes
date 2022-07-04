@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import * as tokenJson from "../artifacts/contracts/Token.sol/MyToken.json";
+import * as tokenJson from "../../artifacts/contracts/Token.sol/MyToken.json";
 
 async function main(signer: ethers.Wallet) {
     // =================================================================

@@ -1,6 +1,6 @@
 import { Contract, ethers } from "ethers";
-import * as ballotJson from "../artifacts/contracts/CustomBallot.sol/CustomBallot.json";
-import { CustomBallot } from "../typechain";
+import * as ballotJson from "../../artifacts/contracts/CustomBallot.sol/CustomBallot.json";
+import { CustomBallot } from "../../typechain";
 
 async function main(signer: ethers.Wallet, ballotContractAddress: string) {
 
