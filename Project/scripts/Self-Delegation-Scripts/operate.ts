@@ -14,17 +14,20 @@ async function main() {
   process.env.ACCOUNTS
 );
 
+
 const signerOne = await getSigner( 
   process.env.PRIVATE_KEY,
   process.env.MNEMONIC,
   process.env.ACCOUNTS1
 );
 
+/*
 const signerTwo = await getSigner(  
   process.env.PRIVATE_KEY,
   process.env.MNEMONIC,
   process.env.ACCOUNTS2
 );
+*/
 
 //Owner deploys the voting token contract
 const votingTokenContract =  await deployToken(ownerSigner);
@@ -36,7 +39,7 @@ await mintingToken(votingTokenContract , "5", ownerSigner);
 await delegating(votingTokenContract, ownerSigner, ownerSigner); 
  
 //Owner deploys the ballot contract
-const ballotContract = await deployBallot(
+const ballotContractAddress = await deployBallot(
   ownerSigner,
   votingTokenContract.address,
   "Allen",
@@ -46,7 +49,7 @@ const ballotContract = await deployBallot(
 );
 
 //Owner votes
-await voteByDelegatee(signerOne,ballotContract);
+await voteByDelegatee(ownerSigner,ballotContractAddress);
 
 }
 
