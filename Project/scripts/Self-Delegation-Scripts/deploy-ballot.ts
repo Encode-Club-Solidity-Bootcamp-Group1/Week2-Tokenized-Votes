@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import * as ballotJson from "../artifacts/contracts/CustomBallot.sol/CustomBallot.json";
+import * as ballotJson from "../../artifacts/contracts/CustomBallot.sol/CustomBallot.json";
 
 function convertStringArrayToBytes32(array: string[]) {
     const bytes32Array = [];
